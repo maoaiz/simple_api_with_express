@@ -8,5 +8,5 @@ app.get('/', function(req, res) {
 const port = 3000;
 
 app.listen(port, function() {
-  console.log(`Aplicación escuchando el puerto ${posr}!`);
+  console.log(`Aplicación escuchando el puerto ${port}!`);
 });
