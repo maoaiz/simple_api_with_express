@@ -7,7 +7,11 @@ app.get('/', function(req, res) {
 });
 
 const port = 3000;
+const nodeenv = process.env.NODE_ENV;
+const description = process.env.API_DESCRIPTION;
 
 app.listen(port, function() {
   console.log(`Aplicación escuchando el puerto ${port}!`);
+  console.log(`Trabajando con entorno ${nodeenv}`);
+  console.log(`Descripción: ${description}`);
 });
