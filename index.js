@@ -7,7 +7,7 @@ app.get('/', function(req, res) {
   res.send('Hola Mundo!');
 });
 
-app.get('/students', function(req, res) {
+app.get('/students', async (req, res) => {
   console.log("New request GET to /students");
   try {
     // Esperamos a que termine de devolver los estudiantes
@@ -17,7 +17,8 @@ app.get('/students', function(req, res) {
   } catch (err) {
     console.error(`Error: `, err.message);
   }
-});
+})
+
 
 const port = 3000;
 const nodeenv = process.env.NODE_ENV;
