@@ -1,9 +1,22 @@
+const sql = require('./connectToMySQL');
 var express = require('express');
 var app = express();
 
 app.get('/', function(req, res) {
   console.log("New request GET to /");
   res.send('Hola Mundo!');
+});
+
+app.get('/students', function(req, res) {
+  console.log("New request GET to /students");
+  try {
+    // Esperamos a que termine de devolver los estudiantes
+    // antes de retornar una respuesta
+    const students = await sql.getAllStudents();
+    res.send(students);
+  } catch (err) {
+    console.error(`Error: `, err.message);
+  }
 });
 
 const port = 3000;
