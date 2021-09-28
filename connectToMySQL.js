@@ -5,7 +5,7 @@ exports.getAllStudents = async function getAllStudents() {
   const con = await mysql.createConnection({
     host: "mi-primer-db.cdeqsd7kv096.sa-east-1.rds.amazonaws.com",
     user: "admin_root",
-    password: process.env.DB_PASS || "123456",
+    password: process.env.DB_PASS,
     database: "RDS_FirstExample"
   });
  

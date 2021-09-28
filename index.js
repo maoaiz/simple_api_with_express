@@ -1,4 +1,5 @@
 const sql = require('./connectToMySQL');
+const mongo = require('./connectToMongoDB');
 var express = require('express');
 var app = express();
 
@@ -17,7 +18,26 @@ app.get('/students', async (req, res) => {
   } catch (err) {
     console.error(`Error: `, err.message);
   }
+});
+
+app.post('/users', async (req, res) => {
+  try {
+    await mongo.addNewUser();
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(`Error: `, err.message);
+  }
 })
+ 
+app.get('/users', async (req, res) => {
+  try {
+    let users = await mongo.getAllUsers();
+    res.send(users);
+  } catch (err) {
+    console.error(`Error: `, err.message);
+  }
+})
+
 
 
 const port = 3000;
