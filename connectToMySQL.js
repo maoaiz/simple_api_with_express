@@ -3,10 +3,10 @@ const mysql = require('mysql2/promise');
 exports.getAllStudents = async function getAllStudents() {
   // Establece la conexión con la DB
   const con = await mysql.createConnection({
-    host: "mi-primer-db.cdeqsd7kv096.sa-east-1.rds.amazonaws.com",
-    user: "admin_root",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: "RDS_FirstExample"
+    database: process.env.DB_NAME
   });
  
   // Query/Consulta para traer TODOS los estudiantes
