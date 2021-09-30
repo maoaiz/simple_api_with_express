@@ -1,7 +1,13 @@
+const redis = require('redis');
 const sql = require('./connectToMySQL');
 const mongo = require('./connectToMongoDB');
 var express = require('express');
 var app = express();
+const redisClient = redis.createClient({
+  host: process.env.REDIS_ENDPOINT,
+  port: 6379
+
+})
 
 app.get('/', function(req, res) {
   console.log("New request GET to /");
@@ -28,14 +34,30 @@ app.post('/users', async (req, res) => {
     console.error(`Error: `, err.message);
   }
 })
- 
+
 app.get('/users', async (req, res) => {
-  try {
-    let users = await mongo.getAllUsers();
-    res.send(users);
-  } catch (err) {
-    console.error(`Error: `, err.message);
-  }
+  console.log("New request GET to /users");
+  const userRedisKey = "User";
+ 
+  redisClient.get(userRedisKey, async (error, result) => {
+    // Si hay error, lo devolvemos
+    if (error) {
+      res.json(error);
+    }
+    // Si hay algún resultado, quiere decir que fue obtenido desde Redis
+    // En este caso, lo devolvemos sin más
+    if (result) {
+      res.json(result);
+    } else {
+      // Si no se encontró nada en Redis, se busca en la DB
+      let user = await mongo.getUser();
+ 
+      // Y se guarda en Redis para que esté disponible en la próxima llamada
+      redisClient.set(userRedisKey, JSON.stringify(user));
+ 
+      res.send(user);
+    }
+  });
 })
 
 
