@@ -50,7 +50,7 @@ app.get('/users', async (req, res) => {
       res.json(result);
     } else {
       // Si no se encontró nada en Redis, se busca en la DB
-      let user = await mongo.getUser();
+      let user = await mongo.getAllUsers();
  
       // Y se guarda en Redis para que esté disponible en la próxima llamada
       redisClient.set(userRedisKey, JSON.stringify(user));
