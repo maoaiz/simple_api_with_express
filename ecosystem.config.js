@@ -12,7 +12,8 @@ module.exports = {
       "DB_USER": process.env.DB_USER,
       "DB_PASS": process.env.DB_PASS,
       "MONGO_URL": process.env.MONGO_URL,
-      "REDIS_ENDPOINT": process.env.REDIS_ENDPOINT
+      "REDIS_ENDPOINT": process.env.REDIS_ENDPOINT,
+      "CACHE_EX": process.env.CACHE_EX
     },
     env_production: {
       "NODE_ENV": "production",
@@ -21,7 +22,8 @@ module.exports = {
       "DB_USER": process.env.DB_USER,
       "DB_PASS": process.env.DB_PASS,
       "MONGO_URL": process.env.MONGO_URL,
-      "REDIS_ENDPOINT": process.env.REDIS_ENDPOINT
+      "REDIS_ENDPOINT": process.env.REDIS_ENDPOINT,
+      "CACHE_EX": process.env.CACHE_EX
     }
   }]
 };
