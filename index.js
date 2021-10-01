@@ -47,13 +47,13 @@ app.get('/users', async (req, res) => {
     // Si hay algún resultado, quiere decir que fue obtenido desde Redis
     // En este caso, lo devolvemos sin más
     if (result) {
-      res.json(result);
+      res.json(JSON.parse(result));
     } else {
       // Si no se encontró nada en Redis, se busca en la DB
       let user = await mongo.getAllUsers();
  
       // Y se guarda en Redis para que esté disponible en la próxima llamada
-      redisClient.set(userRedisKey, JSON.stringify(user));
+      redisClient.set(userRedisKey, JSON.stringify(user), 'EX', process.env.CACHE_EX);
  
       res.send(user);
     }
